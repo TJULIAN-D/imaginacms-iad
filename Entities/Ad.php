@@ -89,6 +89,11 @@ class Ad extends CrudModel
     return $this->hasMany(Schedule::class);
   }
 
+  public function bids()
+  {
+    return $this->hasMany(Bid::class);
+  }
+
   public function country()
   {
     return $this->belongsTo(Country::class);
@@ -170,12 +175,23 @@ class Ad extends CrudModel
   {
     $baseUrls = [config("app.url")];
     $categoryUrls = $this->categories->pluck('url')->toArray();
-    if (!$this->wasRecentlyCreated) {
+    if (!$this->wasRecentlyCreated && !is_null($this->slug)) {
       $baseUrls[] = $this->url;
     }
     $urls = ['urls' => array_merge($baseUrls, $categoryUrls)];
 
     return $urls;
+  }
+
+  public function allowPrivateMedia()
+  {
+    $authUser = \Auth::user();
+    if (is_module_enabled('Iplan') && $authUser) {
+      $service = app('Modules\Iplan\Services\SubscriptionService');
+      $hasSubscription = $service->validate($this, $authUser);
+      if($hasSubscription) return true;
+    }
+    return false;
   }
 
 }

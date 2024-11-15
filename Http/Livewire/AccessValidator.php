@@ -9,11 +9,18 @@ class AccessValidator extends Component
 {
   public $view;
   public $item;
+  public $allowPrivateMedia;
 
   public function mount($item, $view)
   {
     $this->item = $item;
     $this->view = $view;
+    $this->allowPrivateMedia = $this->item->allowPrivateMedia();
+  }
+
+  public function refreshAdContent()
+  {
+    $this->allowPrivateMedia = $this->item->allowPrivateMedia();
   }
 
   /*
@@ -22,7 +29,6 @@ class AccessValidator extends Component
   */
   public function render()
   {
-    $allowPrivateMedia = $this->item->allowPrivateMedia();
-    return view($this->view, compact("allowPrivateMedia"));
+    return view($this->view);
   }
 }

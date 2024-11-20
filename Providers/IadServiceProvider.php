@@ -184,6 +184,5 @@ class IadServiceProvider extends ServiceProvider
     private function registerComponentsLivewire()
     {
         Livewire::component('iad::buy-up', \Modules\Iad\Http\Livewire\AdUpForm::class);
-        Livewire::component('iad::access-validator', \Modules\Iad\Http\Livewire\AccessValidator::class);
     }
 }

@@ -53,11 +53,6 @@ class Bid extends CrudModel
       return $this->belongsTo(Ad::class);
   }
 
-  public function createdByUser()
-  {
-    $driver = config('asgard.user.config.driver');
-    return $this->belongsTo("Modules\\User\\Entities\\{$driver}\\User", 'created_by');
-  }
 
   /**
    * Mutators

@@ -26,7 +26,7 @@ Route::prefix('ipin/v1')->group(function (Router $router) {
       'prefix' => 'bids',
       'controller' => 'BidApiController',
       'permission' => 'iad.bids',
-      //'middleware' => ['create' => [], 'index' => [], 'show' => [], 'update' => [], 'delete' => [], 'restore' => []],
+      'middleware' => ['index' => [], 'show' => []],
       // 'customRoutes' => [ // Include custom routes if needed
       //  [
       //    'method' => 'post', // get,post,put....

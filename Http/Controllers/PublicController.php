@@ -119,6 +119,12 @@ class PublicController extends BaseApiController
         config(['asgard.iad.config.filters' => $configFilters]);
         //$dataRequest = $request->all();
 
+        if ($category && method_exists($category, 'renderLayout')) {
+          return $category->renderLayout(function() use($tpl, $category, $categoryBreadcrumb){
+            return view($tpl, compact('category', 'categoryBreadcrumb'));
+          }, ["category" => $category, "categoryBreadcrumb" => $categoryBreadcrumb]);
+        }
+
         return view($tpl, compact('category', 'categoryBreadcrumb'));
     }
 
@@ -148,11 +154,14 @@ class PublicController extends BaseApiController
 
         $item = $this->ad->getItem($slug, $params);
         $categories = $this->categoryRepository->getItemsBy(json_decode(json_encode([])));
-        if (isset($item->id)) {
-            return view($tpl, compact('item', 'categories'));
-        } else {
-            return response()->view('errors.404', [], 404);
-        }
+
+      if (isset($item->id)) {
+        return $item->renderLayout(function() use($tpl, $item, $categories){
+          return view($tpl, compact('item', 'categories'));
+        }, ["item" => $item, "categories" => $categories]);
+      } else {
+        return response()->view('errors.404', [], 404);
+      }
     }
 
     public function editAd($adId)

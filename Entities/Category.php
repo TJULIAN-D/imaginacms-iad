@@ -97,7 +97,7 @@ class Category extends CrudModel
   public function getCacheClearableData()
   {
     $baseUrls = [config("app.url")];
-    if (!$this->wasRecentlyCreated) {
+    if (!$this->wasRecentlyCreated && !empty($this->slug)) {
       $baseUrls[] = $this->url;
     }
     $urls = ['urls' => $baseUrls];

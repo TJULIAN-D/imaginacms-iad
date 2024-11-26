@@ -343,4 +343,18 @@ if you use the statuses and defined some one by default that's would be the stat
   'adExtraFields' => [],
   'searchExtraFields' => [],
   'searchInRelation' => [],
+
+  // Builder
+  'builder' => [
+    'layout' => [
+      [
+        'entity' => ['label' => "iad::ads.title.ads", 'value' => "Modules\\Iad\\Entities\\Ad"],
+        'types' => []
+      ],
+      [
+        'entity' => ['label' => "iad::cms.sidebar.adminCategories", 'value' => "Modules\\Iad\\Entities\\Category"],
+        'types' => []
+      ]
+    ]
+  ]
 ];
